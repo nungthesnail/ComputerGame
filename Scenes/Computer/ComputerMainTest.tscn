@@ -1,0 +1,157 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcqsfhlhrrodu"]
+
+[sub_resource type="GDScript" id="GDScript_1tbgd"]
+script/source = "extends Control
+
+
+var input_func : Callable
+var computer : Computer = null
+var computer_name : String = \"\"
+@onready var output = $VBoxContainer/Output
+@onready var input = $VBoxContainer/Input
+
+
+func _ready():
+	if !GameState.current_computer:
+		var comp = Computer.new()
+		input_func = comp.recept_input
+		comp.output_callback = push_output
+		comp.ui = self
+		comp.computer_name = computer_name
+		computer = comp
+		GameState.current_computer = comp
+		comp.start()
+
+
+func _process(delta):
+	if computer:
+		computer._process(delta)
+	
+	# $VBoxContainer/TopTools/Help.disabled = $Help/PanelContainer/VBoxContainer/HelpLabel.text.is_empty()
+
+
+func push_output(content : String):
+	output.append_text(content)
+
+
+func set_help_text(text : String):
+	$Help/PanelContainer/VBoxContainer/HelpLabel.text = \"\"
+	$Help/PanelContainer/VBoxContainer/HelpLabel.clear()
+	$Help/PanelContainer/VBoxContainer/HelpLabel.append_text(text)
+
+
+func recept_input(data : String):
+	if !input_func:
+		return
+	
+	input_func.call(data)
+
+
+func shutdown():
+	GameState.stop_computer()
+	Tasking.update_task(Tasking.TaskUpdate.TYPE_COMPUTER_SHUTDOWN, {\"name\": computer_name})
+	queue_free()
+
+
+func shutdown_button():
+	if computer:
+		computer.shutdown()
+	else:
+		shutdown()
+
+
+func show_help_button():
+	$Help.show()
+
+
+func close_help_button():
+	$Help.hide()
+"
+
+[node name="ComputerMainTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_1tbgd")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopTools" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Shutdown" type="Button" parent="VBoxContainer/TopTools"]
+layout_mode = 2
+text = "Выключить"
+
+[node name="Help" type="Button" parent="VBoxContainer/TopTools"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Задание"
+
+[node name="Output" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_following = true
+
+[node name="Input" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Windows" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Help" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Help"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Help/PanelContainer"]
+layout_mode = 2
+
+[node name="Close" type="Button" parent="Help/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Закрыть"
+
+[node name="HelpLabel" type="RichTextLabel" parent="Help/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="VBoxContainer/TopTools/Shutdown" to="." method="shutdown_button"]
+[connection signal="pressed" from="VBoxContainer/TopTools/Help" to="." method="show_help_button"]
+[connection signal="text_submitted" from="VBoxContainer/Input" to="." method="recept_input"]
+[connection signal="pressed" from="Help/PanelContainer/VBoxContainer/Close" to="." method="close_help_button"]

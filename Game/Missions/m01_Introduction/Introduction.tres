@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b4xgwat4qbqsf"]
+
+[ext_resource type="Script" path="res://Game/Missions/m01_Introduction/Introduction.gd" id="1_6ajw3"]
+
+[resource]
+script = ExtResource("1_6ajw3")

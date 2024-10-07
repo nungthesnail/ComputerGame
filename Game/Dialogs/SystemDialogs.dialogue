@@ -1,0 +1,23 @@
+~ blobtalk_notification
+
+Вам пришло уведомление в BlobTalk!
+
+=> END
+
+~ item_added
+
+Вы подобрали предмет.
+
+=> END
+
+~ item_noplace
+
+Нет свободного места в инвентаре!
+
+=> END!
+
+~ game_saved
+
+Игра сохранена!
+
+=> END!

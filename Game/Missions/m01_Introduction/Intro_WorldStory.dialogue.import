@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://bj2ldtweugpmg"
+path="res://.godot/imported/Intro_WorldStory.dialogue-cecf4dd515717b3bee1dbbe0323088b2.tres"
+
+[deps]
+
+source_file="res://Game/Missions/m01_Introduction/Intro_WorldStory.dialogue"
+dest_files=["res://.godot/imported/Intro_WorldStory.dialogue-cecf4dd515717b3bee1dbbe0323088b2.tres"]
+
+[params]
+
+defaults=true

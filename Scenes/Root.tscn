@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://da0ioeth3y0wf"]
+
+[ext_resource type="Script" path="res://Scenes/Root.gd" id="1_ff5eg"]
+[ext_resource type="PackedScene" uid="uid://bqsidwdepalm5" path="res://Scenes/UI/UIRoot.tscn" id="2_hnbwe"]
+
+[sub_resource type="GDScript" id="GDScript_33hqc"]
+script/source = "extends SubViewport
+
+
+func get_level():
+	for child in get_children():
+		if child.is_in_group(\"level\"):
+			return child
+	
+	return null
+"
+
+[node name="GameRoot" type="Node"]
+process_mode = 3
+script = ExtResource("1_ff5eg")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Viewports" type="SubViewportContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorldViewport" type="SubViewport" parent="Control/Viewports"]
+process_mode = 1
+disable_3d = true
+handle_input_locally = false
+use_hdr_2d = true
+canvas_item_default_texture_filter = 0
+gui_embed_subwindows = true
+size = Vector2i(1000, 500)
+render_target_update_mode = 4
+script = SubResource("GDScript_33hqc")
+
+[node name="UIViewport" type="SubViewport" parent="Control/Viewports"]
+process_mode = 3
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+gui_embed_subwindows = true
+size = Vector2i(1000, 500)
+render_target_update_mode = 4
+
+[node name="UiRoot" parent="Control/Viewports/UIViewport" instance=ExtResource("2_hnbwe")]
+process_mode = 1

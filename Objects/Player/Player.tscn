@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://cap08oowrufxk"]
+
+[ext_resource type="Script" path="res://Objects/Player/Player.gd" id="1_usdeu"]
+[ext_resource type="Texture2D" uid="uid://d28tfcinroa7k" path="res://_bullshit/Sprites/001 NPC.png" id="2_0btxy"]
+[ext_resource type="PackedScene" uid="uid://cprimv1y6xn4e" path="res://Objects/System/RemotePos.tscn" id="3_ebtm7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uu21d"]
+radius = 3.9
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ih4ch"]
+radius = 5.0
+height = 20.0
+
+[sub_resource type="GDScript" id="GDScript_kjny3"]
+script/source = "extends Label
+
+
+var time : float = 0.0
+var primary_text : String = \"\"
+var secondary_text : String = \"\"
+
+
+func _process(delta):
+	if time > 0.0:
+		time -= delta
+	else:
+		secondary_text = \"\"
+	text = primary_text if primary_text else secondary_text
+
+
+func push_text(value : String, _time : float):
+	secondary_text = value
+	time = _time
+
+
+func set_primary_text(value : String):
+	primary_text = value
+
+
+func clear_primary_text():
+	primary_text = \"\"
+"
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_usdeu")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_uu21d")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("2_0btxy")
+region_enabled = true
+region_rect = Rect2(13.9715, 24, 8.02849, 12)
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_ih4ch")
+
+[node name="RemotePos" parent="." instance=ExtResource("3_ebtm7")]
+
+[node name="Hint" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -32.0
+offset_right = 227.0
+offset_bottom = 21.0
+scale = Vector2(0.3, 0.3)
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+script = SubResource("GDScript_kjny3")
+
+[connection signal="area_entered" from="InteractionArea" to="." method="interactive_collision"]
+[connection signal="area_exited" from="InteractionArea" to="." method="interactive_collision_end"]
+[connection signal="body_entered" from="InteractionArea" to="." method="interactive_collision"]
+[connection signal="body_exited" from="InteractionArea" to="." method="interactive_collision_end"]

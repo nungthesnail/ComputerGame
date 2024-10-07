@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwj3afel4dkyr"]
+
+[ext_resource type="Script" path="res://Objects/World/Interactive/Basic/Teleport.gd" id="1_vd8os"]
+[ext_resource type="Texture2D" uid="uid://dpg08bq3v1wdj" path="res://Sprites/Light/Light.png" id="2_rdaw0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lg88x"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_wot0r"]
+resource_name = "transition"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}, {
+"args": [],
+"method": &"teleport_end"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ae3b"]
+_data = {
+"transition": SubResource("Animation_wot0r")
+}
+
+[node name="Teleport" type="Area2D" groups=["interactive"]]
+script = ExtResource("1_vd8os")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lg88x")
+
+[node name="PointLight" type="PointLight2D" parent="."]
+position = Vector2(-2.38419e-07, -2.38419e-07)
+color = Color(0.952941, 0.168627, 0, 1)
+texture = ExtResource("2_rdaw0")
+texture_scale = 0.07
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6ae3b")
+}

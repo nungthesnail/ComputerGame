@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://55xfehwj375i"]
+
+[ext_resource type="TileSet" uid="uid://ch5jomjduwent" path="res://Tilesets/InteriorTileset01.tres" id="1_37pul"]
+
+[node name="InteriorBaseTileset" type="TileMap"]
+tile_set = ExtResource("1_37pul")
+format = 2
+layer_0/name = "Ground"
+layer_1/name = "WallsAddictional"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Furniture"
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "Misc"
+layer_3/tile_data = PackedInt32Array()

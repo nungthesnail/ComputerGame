@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cprimv1y6xn4e"]
+
+[ext_resource type="Script" path="res://Objects/System/RemotePos.gd" id="1_cw3e4"]
+
+[node name="RemotePos" type="RemoteTransform2D"]
+update_rotation = false
+update_scale = false
+script = ExtResource("1_cw3e4")
+
+[node name="Marker" type="Marker2D" parent="."]

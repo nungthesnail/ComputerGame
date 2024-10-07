@@ -1,0 +1,148 @@
+[gd_scene load_steps=8 format=3 uid="uid://culawckl26fu8"]
+
+[ext_resource type="Script" path="res://Game/Missions/m04_RaiseTheAlarm/RevolverAppearance.gd" id="1_6uwkl"]
+[ext_resource type="Script" path="res://Objects/System/Animation/Animator.gd" id="2_d6q1q"]
+[ext_resource type="Texture2D" uid="uid://cfkkbfufyo7q" path="res://Sprites/Misc/Backgrounds/NightSky.png" id="2_m4uvx"]
+[ext_resource type="Texture2D" uid="uid://y6k8grx06hmv" path="res://Sprites/Characters/Revolver.png" id="3_pnxxn"]
+
+[sub_resource type="Animation" id="Animation_43a68"]
+resource_name = "end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_qmera"]
+resource_name = "revolver_main"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ViewportContainer/Viewport/Scene/Revolver:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.8, 3.5, 5.3, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.188235), Color(1, 1, 1, 0), Color(1, 1, 1, 0.188235), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ViewportContainer/Viewport/Scene/Revolver:skew")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 3, 5, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0523599, -0.0523599, 0.0523599, -0.0523599]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ViewportContainer/Viewport/Scene/Revolver:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(2, 2), Vector2(2.5, 2.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ViewportContainer/Viewport/Scene/Revolver:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(380, 214), Vector2(480, 264)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hwqi"]
+_data = {
+"end": SubResource("Animation_43a68"),
+"revolver_main": SubResource("Animation_qmera")
+}
+
+[node name="RevolverAppearance" type="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6uwkl")
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Viewport" type="SubViewport" parent="ViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1000, 500)
+render_target_update_mode = 4
+
+[node name="Scene" type="Node2D" parent="ViewportContainer/Viewport"]
+
+[node name="Background" type="Sprite2D" parent="ViewportContainer/Viewport/Scene"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_m4uvx")
+centered = false
+
+[node name="Revolver" type="Sprite2D" parent="ViewportContainer/Viewport/Scene"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(380, 214)
+scale = Vector2(2, 2)
+texture = ExtResource("3_pnxxn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6hwqi")
+}
+script = ExtResource("2_d6q1q")

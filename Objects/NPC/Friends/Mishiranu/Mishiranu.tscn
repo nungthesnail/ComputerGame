@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmntasnipdm1i"]
+
+[ext_resource type="Script" path="res://Objects/NPC/Friends/Mishiranu/Mishiranu.gd" id="1_8qo21"]
+[ext_resource type="Texture2D" uid="uid://d28tfcinroa7k" path="res://_bullshit/Sprites/001 NPC.png" id="1_lnch4"]
+[ext_resource type="Script" path="res://Objects/NPC/Friends/Mishiranu/MishiranuMissionScripts.gd" id="2_qqeco"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g8r1i"]
+radius = 2.0
+height = 8.0
+
+[node name="Mishiranu" type="CharacterBody2D" groups=["interactive"]]
+script = ExtResource("1_8qo21")
+tags = Array[String](["mishiranu"])
+hint_text = "Нажмите [E] чтобы заговорить с Миширану"
+mission_scripts_class = ExtResource("2_qqeco")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_lnch4")
+region_enabled = true
+region_rect = Rect2(14, 12, 8, 12)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_g8r1i")

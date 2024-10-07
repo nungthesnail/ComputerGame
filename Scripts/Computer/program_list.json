@@ -1,0 +1,22 @@
+{
+	"TestProgram": {
+		"path": "res://Scripts/Computer/Programs/TestProgram.tres",
+		"avaible": "all"
+	},
+	"TestTask": {
+		"path": "res://Scripts/Computer/Programs/TestTask.tres",
+		"avaible": "all"
+	},
+	"netwalker": {
+		"path": "res://Scripts/Computer/Programs/Netwalker.tres",
+		"avaible": "all"
+	},
+	"blobtalk": {
+		"path": "res://Scripts/Computer/Programs/Messenger/BlobTalk.tres",
+		"avaible": "all"
+	},
+	"luanvil": {
+		"path": "res://Scripts/Computer/Programs/luANVIL/Luanvil.tres",
+		"avaible": "all"
+	}
+}

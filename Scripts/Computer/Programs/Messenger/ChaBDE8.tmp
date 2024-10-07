@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0ftend20tpxn"]
+
+[sub_resource type="GDScript" id="GDScript_g75ri"]
+script/source = "extends Panel
+
+
+var notification : bool = false
+var avatar : Texture = null
+var username : String = \"\"
+
+var mouse_over : bool = false
+
+
+func set_avatar(texture : Texture):
+	$HBoxContainer/MarginContainer/Avatar.texture = texture
+	avatar = texture
+
+
+func set_username(_username : String):
+	$HBoxContainer/UserName.text = _username
+	username = _username
+
+
+func set_notification(value : bool = true):
+	if value:
+		var texture = load(\"res://Sprites/Light/Light.png\") # Notification texture placeholder
+		$HBoxContainer/CenterContainer/Notification.texture = texture
+	else:
+		$HBoxContainer/CenterContainer/Notification.texture = null
+	
+	notification = value
+
+
+func mouse_in_rect(value : bool):
+	mouse_over = value
+
+
+func _input(event):
+	if event is InputEventMouseButton && mouse_over:
+		if event.pressed == true:
+			print(true)
+"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mlxwv"]
+size = Vector2(64, 64)
+
+[node name="ChatPreviewTemplate" type="Panel"]
+custom_minimum_size = Vector2(250, 75)
+mouse_default_cursor_shape = 2
+script = SubResource("GDScript_g75ri")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Avatar" type="TextureRect" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_mlxwv")
+
+[node name="UserName" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+clip_text = true
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="Notification" type="TextureRect" parent="HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[connection signal="mouse_entered" from="." to="." method="mouse_in_rect" binds= [true]]
+[connection signal="mouse_exited" from="." to="." method="mouse_in_rect" binds= [false]]
+[connection signal="gui_input" from="HBoxContainer/CenterContainer/Notification" to="." method="clicked"]

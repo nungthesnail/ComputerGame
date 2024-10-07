@@ -1,0 +1,17 @@
+{
+	"shutdown": {
+		"callable": "",
+		"path": "__none__",
+		"description": "[u]shutdown[/u] : Shutdowns the computer.\n"
+	},
+	"run": {
+		"callable": "",
+		"path": "__none__",
+		"description": "[u]run [i]path_to_program[/i][/u] : Runs a program.\n"
+	},
+	"help": {
+		"callable": "",
+		"path": "res://Scripts/Computer/Programs/HelpProgram.tres",
+		"description": "[u]help [i]command_name_or_program_name[/i][/u] : Shows help for the program or command\n"
+	}
+}

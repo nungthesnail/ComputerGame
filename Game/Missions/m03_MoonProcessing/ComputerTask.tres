@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://elqcvddeo3de"]
+
+[ext_resource type="Script" path="res://Game/Missions/m03_MoonProcessing/ComputerTask.gd" id="1_tbx23"]
+
+[resource]
+script = ExtResource("1_tbx23")
+back_processing = true
+program_name = "_moon_processing_task"

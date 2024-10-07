@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8tg43qsgdn5c"]
+
+[ext_resource type="Script" path="res://Objects/World/WorldArea.gd" id="1_af87p"]
+
+[node name="WorldArea" type="Area2D"]
+position = Vector2(1184, 1280)
+script = ExtResource("1_af87p")
+
+[connection signal="body_entered" from="." to="." method="body_entered"]
+[connection signal="body_exited" from="." to="." method="body_exited"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhbo63mx7pyts"]
+
+[sub_resource type="GDScript" id="GDScript_ql04q"]
+script/source = "extends PanelContainer
+
+
+func set_text(text : String):
+	$Text.text = text
+"
+
+[node name="MessageTemplate" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 50)
+offset_right = 300.0
+offset_bottom = 50.0
+size_flags_horizontal = 0
+script = SubResource("GDScript_ql04q")
+
+[node name="Text" type="Label" parent="."]
+custom_minimum_size = Vector2(300, 25)
+layout_mode = 2
+autowrap_mode = 3

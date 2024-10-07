@@ -1,0 +1,342 @@
+[gd_scene load_steps=9 format=3 uid="uid://dka86eovk5fu7"]
+
+[ext_resource type="Script" path="res://Game/Missions/m04_RaiseTheAlarm/RevolverAppearance.gd" id="1_2vpyu"]
+[ext_resource type="Script" path="res://Objects/System/Animation/Animator.gd" id="4_n7pqe"]
+
+[sub_resource type="Shader" id="Shader_k2qvb"]
+code = "shader_type canvas_item;
+
+
+uniform float alpha : hint_range(0.0, 4.0) = 1.0 ;
+
+
+mat2 rot(float a) {
+    float c = cos(a), s = sin(a);
+    return mat2(vec2(c,s), vec2(-s,c));
+}
+
+const float pi = acos(-1.0);
+const float pi2 = pi*2.0;
+
+vec2 pmod(vec2 p, float r) {
+    float a = atan(p.x, p.y) + pi/r;
+    float n = pi2 / r;
+    a = floor(a/n)*n;
+    return p*rot(-a);
+}
+
+float box( vec3 p, vec3 b ) {
+    vec3 d = abs(p) - b;
+    return min(max(d.x,max(d.y,d.z)),0.0) + length(max(d,0.0));
+}
+
+float ifsBox(vec3 p, float iTime) {
+    for (int i=0; i<5; i++) {
+        p = abs(p) - 1.0;
+        p.xy *= rot(iTime*0.3);
+        p.xz *= rot(iTime*0.1);
+    }
+    p.xz *= rot(iTime);
+    return box(p, vec3(0.4,0.8,0.3));
+}
+
+float map(vec3 p, vec3 cPos, float time) {
+    vec3 p1 = p;
+    p1.x = mod(p1.x-5., 10.) - 5.;
+    p1.y = mod(p1.y-5., 10.) - 5.;
+    p1.z = mod(p1.z, 16.)-8.;
+    p1.xy = pmod(p1.xy, 5.0);
+    return ifsBox(p1, time);
+}
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	vec2 iResolution = 1.0 / SCREEN_PIXEL_SIZE;
+	vec2 p = (FRAGCOORD.xy * 2.0 - iResolution.xy) / min(iResolution.x, iResolution.y);
+
+    vec3 cPos = vec3(0.0,0.0, -3.0 * TIME);
+    // vec3 cPos = vec3(0.3*sin(iTime*0.8), 0.4*cos(iTime*0.3), -6.0 * iTime);
+    vec3 cDir = normalize(vec3(0.0, 0.0, -1.0));
+    vec3 cUp  = vec3(sin(TIME), 1.0, 0.0);
+    vec3 cSide = cross(cDir, cUp);
+
+    vec3 ray = normalize(cSide * p.x + cUp * p.y + cDir);
+
+    // Phantom Mode https://www.shadertoy.com/view/MtScWW by aiekick
+    float acc = 0.0;
+    float acc2 = 0.0;
+    float t = 0.0;
+    for (int i = 0; i < 99; i++) {
+        vec3 pos = cPos + ray * t;
+        float dist = map(pos, cPos, TIME);
+        dist = max(abs(dist), 0.02);
+        float a = exp(-dist*3.0);
+        if (mod(length(pos)+24.0*TIME, 30.0) < 3.0) {
+            a *= 2.0;
+            acc2 += a;
+        }
+        acc += a;
+        t += dist * 0.5;
+    }
+
+    vec3 col = vec3(acc * 0.01, acc * 0.011 + acc2*0.002, acc * 0.012+ acc2*0.005);
+    COLOR = vec4(col, (1.0 - t * 0.03) * alpha);
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1bvn"]
+shader = SubResource("Shader_k2qvb")
+shader_parameter/alpha = 0.0
+
+[sub_resource type="Animation" id="Animation_43a68"]
+resource_name = "end"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [{
+"name": "faint_destroyed"
+}],
+"method": &"update_task"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_qmera"]
+resource_name = "faint_begin"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shader:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.4]
+}
+
+[sub_resource type="Animation" id="Animation_5jtvr"]
+resource_name = "faint_progress"
+length = 50.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shader:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.05, 4.0, 4.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BG:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Title/Center/GameTitle:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 14.5, 15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Title/Center/GameTitle:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 14.5, 25, 27),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Title/Center/Author:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 9, 13.5, 14),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Title/Center/Author:visible_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 9, 12),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Title/Center/Story:visible_ratio")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 28, 42),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Title/Center/Story:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 28, 47, 50),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hwqi"]
+_data = {
+"end": SubResource("Animation_43a68"),
+"faint_begin": SubResource("Animation_qmera"),
+"faint_progress": SubResource("Animation_5jtvr")
+}
+
+[node name="FaintCover" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2vpyu")
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_q1bvn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="CenterContainer" parent="Title"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameTitle" type="Label" parent="Title/Center"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 96
+text = "Герилья"
+visible_characters = 0
+visible_characters_behavior = 2
+visible_ratio = 0.0
+
+[node name="Author" type="Label" parent="Title/Center"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "NUNGTHESNAIL представляет"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Story" type="Label" parent="Title/Center"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Револьверщик начал готовить вторжение. У повстанцев катастрофически мало времени.
+Необходимо срочно восстановить все маяки. Но как этот межсетевой конфликт скажется на Норвуде?"
+horizontal_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6hwqi")
+}
+script = ExtResource("4_n7pqe")

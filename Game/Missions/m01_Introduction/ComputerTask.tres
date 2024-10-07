@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dfgtbgoa6p4nq"]
+
+[ext_resource type="Script" path="res://Game/Missions/m01_Introduction/ComputerTask.gd" id="1_im67j"]
+
+[resource]
+script = ExtResource("1_im67j")
+back_processing = true
+program_name = "_introduction_task"

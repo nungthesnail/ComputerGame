@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://dcjrte8euk261"
+path="res://.godot/imported/RaiseTheAlarmDialogs.dialogue-79514caf388221e6644253c74d3b12f5.tres"
+
+[deps]
+
+source_file="res://Game/Missions/m04_RaiseTheAlarm/RaiseTheAlarmDialogs.dialogue"
+dest_files=["res://.godot/imported/RaiseTheAlarmDialogs.dialogue-79514caf388221e6644253c74d3b12f5.tres"]
+
+[params]
+
+defaults=true

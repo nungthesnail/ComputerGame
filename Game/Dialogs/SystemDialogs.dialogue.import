@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://dfty80pauq8ps"
+path="res://.godot/imported/SystemDialogs.dialogue-4cf5867a0e65444e6bc93f78b075325b.tres"
+
+[deps]
+
+source_file="res://Game/Dialogs/SystemDialogs.dialogue"
+dest_files=["res://.godot/imported/SystemDialogs.dialogue-4cf5867a0e65444e6bc93f78b075325b.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuia4qpejprxu"]
+
+[ext_resource type="Script" path="res://Scenes/UI/InventoryMenu.gd" id="1_88si8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u8jk"]
+region = Rect2(0, 0, 8, 8)
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_88si8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollLeft" type="ScrollContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ScrollLeft"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="LeftContainer" type="VBoxContainer" parent="HBoxContainer/ScrollLeft/MarginContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollRight" type="ScrollContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="HBoxContainer/ScrollRight"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="RightContainer" type="VBoxContainer" parent="HBoxContainer/ScrollRight/Margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/ScrollRight/Margin/RightContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_8u8jk")
+
+[node name="ItemName" type="Label" parent="HBoxContainer/ScrollRight/Margin/RightContainer"]
+layout_mode = 2
+text = "Название предмета: "
+clip_text = true
+
+[node name="Description" type="Label" parent="HBoxContainer/ScrollRight/Margin/RightContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Описание: "
+autowrap_mode = 3
+clip_text = true
+
+[node name="Throw" type="Button" parent="HBoxContainer/ScrollRight/Margin/RightContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Выкинуть предмет"
+
+[connection signal="pressed" from="HBoxContainer/ScrollRight/Margin/RightContainer/Throw" to="." method="throw_button"]

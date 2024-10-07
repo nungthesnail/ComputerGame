@@ -1,0 +1,408 @@
+[gd_scene load_steps=19 format=3 uid="uid://b81g4hr0s0d5l"]
+
+[ext_resource type="PackedScene" uid="uid://dmntasnipdm1i" path="res://Objects/NPC/Friends/Mishiranu/Mishiranu.tscn" id="1_2njvl"]
+[ext_resource type="Texture2D" uid="uid://cofct8j4fjusf" path="res://Sprites/Characters/Characters01.png" id="2_c1a0a"]
+[ext_resource type="PackedScene" uid="uid://dsid7nbo3i4gj" path="res://Objects/World/Interactive/Basic/ItemCollector.tscn" id="3_4875c"]
+[ext_resource type="Script" path="res://Objects/Items/BeaconPart.gd" id="4_ub1vu"]
+[ext_resource type="Texture2D" uid="uid://bliygw15dwn46" path="res://Sprites/Items/Items.png" id="5_oodnn"]
+[ext_resource type="Texture2D" uid="uid://dpg08bq3v1wdj" path="res://Sprites/Light/Light.png" id="6_6pmbb"]
+[ext_resource type="PackedScene" uid="uid://cprimv1y6xn4e" path="res://Objects/System/RemotePos.tscn" id="8_nfrk1"]
+
+[sub_resource type="Curve2D" id="Curve2D_xf4ob"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1080, 488, -25.1984, -6.61459, 25.1984, 6.61459, 1112, 520, -34.4903, -16.2215, 34.4903, 16.2215, 1280, 528, 17.1291, -15.3915, -17.1291, 15.3915, 1288, 728, 0, 0, 0, 0, 1224, 736, 0, 0, 0, 0, 1224, 728)
+}
+point_count = 6
+
+[sub_resource type="Animation" id="Animation_o5mff"]
+resource_name = "hostel1"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerPuppet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2296, -552), Vector2(2312, -552)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MishiranuInterior:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2320, -544), Vector2(2320, -544)]
+}
+
+[sub_resource type="Animation" id="Animation_46ayc"]
+resource_name = "hostel2"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MishiranuInterior:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2320, -544), Vector2(2344, -552), Vector2(2351, -616.365)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerPuppet:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.3, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2312, -552), Vector2(2345, -547), Vector2(2353, -605)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InteriorCamPosition:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2337, -556), Vector2(2337, -556), Vector2(2337, -597)]
+}
+
+[sub_resource type="Animation" id="Animation_l7txr"]
+resource_name = "hostel3"
+length = 8.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MishiranuInterior:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2351, -616.365), Vector2(2351, -616.365), Vector2(2328, -628)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerPuppet:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2353, -605), Vector2(2353, -605), Vector2(2339, -627)]
+}
+
+[sub_resource type="Animation" id="Animation_s5c5h"]
+resource_name = "hostel4"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MishiranuInterior:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2328, -628)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerPuppet:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2339, -627)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"event1"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4isr1"]
+resource_name = "hostel5"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerPuppet:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1, 2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.174533, 0.174533, -1.0472]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerPuppet:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 1, 2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2339, -627), Vector2(2339, -627), Vector2(2343, -627), Vector2(2343, -627), Vector2(2343, -628)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MishiranuInterior:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0001, 1.7, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2328, -628), Vector2(2328, -628), Vector2(2328, -628), Vector2(2335, -628)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [{
+"event": "faint_progress"
+}],
+"method": &"update_task"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2kjvo"]
+resource_name = "mishiranu2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mishiranu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1071, 483)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mishiranu:active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mishiranu:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_718a6"]
+resource_name = "mishiranu_gone1"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mishiranu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1071, 483), Vector2(1347, 483)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mishiranu:active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mishiranu:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_psril"]
+resource_name = "walk"
+length = 10.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path/PathFollow:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i8emb"]
+_data = {
+"hostel1": SubResource("Animation_o5mff"),
+"hostel2": SubResource("Animation_46ayc"),
+"hostel3": SubResource("Animation_l7txr"),
+"hostel4": SubResource("Animation_s5c5h"),
+"hostel5": SubResource("Animation_4isr1"),
+"mishiranu2": SubResource("Animation_2kjvo"),
+"mishiranu_gone1": SubResource("Animation_718a6"),
+"walk": SubResource("Animation_psril")
+}
+
+[sub_resource type="GDScript" id="GDScript_5kvbk"]
+script/source = "extends Animator
+
+
+var ui_cover : Control = null
+
+
+func event1():
+	ui_cover = ObjectRefs.ui_root.add_cover(\"res://Game/Missions/m04_RaiseTheAlarm/RevolverAppearance.tscn\", \"revolver\")
+	ui_cover.play_animation(\"revolver_main\")
+
+
+func delete_cover():
+	ObjectRefs.ui_root.delete_cover(\"revolver\")
+"
+
+[node name="RaiseTheAlarmObjects" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Mishiranu" parent="." instance=ExtResource("1_2njvl")]
+position = Vector2(1071, 483)
+
+[node name="MishiranuInterior" parent="." instance=ExtResource("1_2njvl")]
+position = Vector2(2320, -544)
+
+[node name="PlayerPuppet" type="Node2D" parent="."]
+position = Vector2(2296, -552)
+
+[node name="Sprite" type="Sprite2D" parent="PlayerPuppet"]
+position = Vector2(0, -6)
+texture = ExtResource("2_c1a0a")
+region_enabled = true
+region_rect = Rect2(14, 24, 8, 12)
+
+[node name="BeaconPart1" parent="." instance=ExtResource("3_4875c")]
+position = Vector2(182, 141)
+active = true
+item_class = ExtResource("4_ub1vu")
+hint_text = "Нажмите [E] чтобы подобрать деталь маяка"
+play_dialog = false
+
+[node name="Sprite" type="Sprite2D" parent="BeaconPart1"]
+texture = ExtResource("5_oodnn")
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
+
+[node name="Light" type="PointLight2D" parent="BeaconPart1"]
+color = Color(0, 0.905882, 0.666667, 1)
+texture = ExtResource("6_6pmbb")
+texture_scale = 0.08
+
+[node name="BeaconPart2" parent="." instance=ExtResource("3_4875c")]
+position = Vector2(133, 1230)
+active = true
+item_class = ExtResource("4_ub1vu")
+hint_text = "Нажмите [E] чтобы подобрать деталь маяка"
+play_dialog = false
+
+[node name="Sprite" type="Sprite2D" parent="BeaconPart2"]
+texture = ExtResource("5_oodnn")
+region_enabled = true
+region_rect = Rect2(16, 2, 8, 6)
+
+[node name="Light" type="PointLight2D" parent="BeaconPart2"]
+color = Color(0, 0.905882, 0.666667, 1)
+texture = ExtResource("6_6pmbb")
+texture_scale = 0.08
+
+[node name="Path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_xf4ob")
+
+[node name="PathFollow" type="PathFollow2D" parent="Path"]
+position = Vector2(1080, 488)
+rotation = 0.785398
+
+[node name="_Timer_71362" type="Timer" parent="Path/PathFollow"]
+wait_time = 0.2
+one_shot = true
+
+[node name="InteriorCamPosition" parent="." instance=ExtResource("8_nfrk1")]
+position = Vector2(2337, -556)
+type = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i8emb")
+}
+script = SubResource("GDScript_5kvbk")

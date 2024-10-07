@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dy0t61g3e8gse"]
+
+[ext_resource type="Script" path="res://Scripts/Computer/Programs/Netwalker.gd" id="1_u3kcw"]
+
+[resource]
+script = ExtResource("1_u3kcw")
+back_processing = true
+program_name = "netwalker"

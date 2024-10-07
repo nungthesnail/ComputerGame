@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://bxvt7wtnoeppw"
+path="res://.godot/imported/Intro_Tutorial1.dialogue-dc3f1b562f06f7214205c548b329836b.tres"
+
+[deps]
+
+source_file="res://Game/Missions/m01_Introduction/Intro_Tutorial1.dialogue"
+dest_files=["res://.godot/imported/Intro_Tutorial1.dialogue-dc3f1b562f06f7214205c548b329836b.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpy10n2qjkut6"]
+
+[ext_resource type="Texture2D" uid="uid://dpg08bq3v1wdj" path="res://Sprites/Light/Light.png" id="1_y0cm1"]
+[ext_resource type="Texture2D" uid="uid://de0yry21jrmu3" path="res://Sprites/Misc/Question.png" id="2_t6s58"]
+
+[node name="MapPoint" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1000.0
+offset_bottom = -500.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Light" type="Sprite2D" parent="."]
+modulate = Color(0.419608, 1, 0.286275, 0.886275)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_y0cm1")
+
+[node name="Question" type="Sprite2D" parent="Light"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_t6s58")

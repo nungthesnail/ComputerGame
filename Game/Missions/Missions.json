@@ -1,0 +1,32 @@
+[
+	{
+		"name": "Introduction",
+		"resource": "res://Game/Missions/m01_Introduction/Introduction.gd",
+		"next": "Quicksand"
+	},
+	{
+		"name": "Quicksand",
+		"resource": "res://Game/Missions/m02_Quicksand/Quicksand.gd",
+		"next": "MoonProcessing"
+	},
+	{
+		"name": "MoonProcessing",
+		"resource": "res://Game/Missions/m03_MoonProcessing/MoonProcessing.gd",
+		"next": "RaiseTheAlarm"
+	},
+	{
+		"name": "RaiseTheAlarm",
+		"resource": "res://Game/Missions/m04_RaiseTheAlarm/RaiseTheAlarm.gd",
+		"next": "CombatDrill"
+	},
+	{
+		"name": "CombatDrill",
+		"resource": "res://Game/Missions/m05_CombatDrill/CombatDrill.gd",
+		"next": "FirstStruggle"
+	},
+	{
+		"name": "FirstStruggle",
+		"resource": "res://Game/Missions/m06_FirstStruggle/FirstStruggle.gd",
+		"next": "Introduction"
+	}
+]

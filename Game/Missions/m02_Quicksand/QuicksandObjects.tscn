@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvoufbt0jri2k"]
+
+[ext_resource type="PackedScene" uid="uid://b8tg43qsgdn5c" path="res://Objects/World/WorldArea.tscn" id="1_062fu"]
+[ext_resource type="PackedScene" uid="uid://c8plii5ndmtr4" path="res://Objects/NPC/Episodic/Marshal/Marshal.tscn" id="2_bm47i"]
+[ext_resource type="Script" path="res://Objects/NPC/Decoration/NpcMissionScriptsDesert.gd" id="3_k15pb"]
+[ext_resource type="PackedScene" uid="uid://dmntasnipdm1i" path="res://Objects/NPC/Friends/Mishiranu/Mishiranu.tscn" id="4_6exhw"]
+[ext_resource type="Script" path="res://Objects/System/Animation/Animator.gd" id="5_y40hk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7i2xn"]
+size = Vector2(420, 279)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxlhd"]
+size = Vector2(77, 80)
+
+[sub_resource type="Animation" id="Animation_j4wqs"]
+resource_name = "mishiranu_go_away"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mishiranu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1318, 741), Vector2(1318, 741), Vector2(1680, 741)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animator")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [{
+"event": "mishiranu_gone"
+}],
+"method": &"update_task"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xi5lt"]
+_data = {
+"mishiranu_go_away": SubResource("Animation_j4wqs")
+}
+
+[node name="Quicksand" type="Node2D"]
+y_sort_enabled = true
+
+[node name="RiverVillageArea" parent="." instance=ExtResource("1_062fu")]
+area_name = "RiverVillage"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="RiverVillageArea"]
+position = Vector2(-9, 8.5)
+shape = SubResource("RectangleShape2D_7i2xn")
+
+[node name="Camp" parent="." instance=ExtResource("1_062fu")]
+position = Vector2(215, 1089)
+area_name = "river_camp"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Camp"]
+position = Vector2(2.5, 6)
+shape = SubResource("RectangleShape2D_xxlhd")
+
+[node name="Marshal" parent="." instance=ExtResource("2_bm47i")]
+position = Vector2(227, 1114)
+tags = Array[String](["marshal"])
+mission_scripts_class = ExtResource("3_k15pb")
+
+[node name="Sprite" parent="Marshal" index="0"]
+flip_h = true
+
+[node name="Mishiranu" parent="." instance=ExtResource("4_6exhw")]
+position = Vector2(1318, 741)
+
+[node name="Sprite" parent="Mishiranu" index="0"]
+flip_h = true
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xi5lt")
+}
+script = ExtResource("5_y40hk")
+
+[editable path="Camp"]
+[editable path="Marshal"]
+[editable path="Mishiranu"]

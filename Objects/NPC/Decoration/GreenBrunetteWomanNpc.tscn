@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://br7bhgobf5twd"]
+
+[ext_resource type="Script" path="res://Objects/NPC/BaseNPC.gd" id="1_a7vm8"]
+[ext_resource type="Texture2D" uid="uid://cofct8j4fjusf" path="res://Sprites/Characters/Characters01.png" id="2_kh1dw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h5dpb"]
+radius = 2.0
+height = 8.0
+
+[node name="GreenBrunetteWomanNpc" type="CharacterBody2D"]
+script = ExtResource("1_a7vm8")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -5)
+texture = ExtResource("2_kh1dw")
+region_enabled = true
+region_rect = Rect2(14, 37, 7, 11)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_h5dpb")

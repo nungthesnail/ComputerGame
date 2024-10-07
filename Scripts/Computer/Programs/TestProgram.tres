@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c7xsp6kcmdjv1"]
+
+[ext_resource type="Script" path="res://Scripts/Computer/Programs/TestProgram.gd" id="1_2lffg"]
+
+[resource]
+script = ExtResource("1_2lffg")
+back_processing = true
+program_name = "test01"

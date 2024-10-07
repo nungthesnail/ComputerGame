@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://l8qa2ywfjj4k"]
+
+[ext_resource type="Script" path="res://Scripts/Computer/Programs/luANVIL/Luanvil.gd" id="1_jrvjx"]
+
+[resource]
+script = ExtResource("1_jrvjx")
+back_processing = true
+program_name = "luanvil"

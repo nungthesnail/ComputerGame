@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmeikpwhpfdpm"]
+
+[ext_resource type="Script" path="res://Scenes/UI/PauseMenu.gd" id="1_sx1sk"]
+[ext_resource type="PackedScene" uid="uid://ck4yrlhvlpjjr" path="res://Scenes/UI/MapMenu.tscn" id="2_bdr6n"]
+[ext_resource type="PackedScene" uid="uid://cuia4qpejprxu" path="res://Scenes/UI/Inventory.tscn" id="2_go266"]
+
+[sub_resource type="GDScript" id="GDScript_1kekq"]
+script/source = "extends Control
+
+
+func resume_button():
+	$\"../../..\".resume_game()
+
+
+func main_menu_button():
+	$\"../../..\".main_menu()
+"
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sx1sk")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabBar" type="TabBar" parent="VBoxContainer"]
+layout_mode = 2
+tab_count = 4
+current_tab = 1
+tab_0/title = "Вернуться"
+tab_1/title = "Игра"
+tab_2/title = "Карта"
+tab_3/title = "Инвентарь"
+
+[node name="ContentContainer" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Game" type="Control" parent="VBoxContainer/ContentContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_1kekq")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ContentContainer/Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentContainer/Game/MarginContainer"]
+layout_mode = 2
+
+[node name="Separator1" type="Label" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "-------[Игра]-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+clip_text = true
+
+[node name="StateChangers" type="VBoxContainer" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Return" type="Button" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer/StateChangers"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Вернуться к игре"
+alignment = 0
+
+[node name="MainMenu" type="Button" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer/StateChangers"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Выйти в главное меню"
+alignment = 0
+
+[node name="Separator2" type="Label" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "-------[Прохождение]-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+clip_text = true
+
+[node name="Progress" type="VBoxContainer" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LastCompleted" type="Label" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer/Progress"]
+layout_mode = 2
+text = "Последнее завершенное задание: -"
+
+[node name="NextTask" type="Label" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer/Progress"]
+layout_mode = 2
+text = "Следующее задание: -"
+
+[node name="Percent" type="Label" parent="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer/Progress"]
+layout_mode = 2
+text = "Процент прохождения сюжета: 0%"
+
+[node name="Map" parent="VBoxContainer/ContentContainer" instance=ExtResource("2_bdr6n")]
+visible = false
+layout_mode = 1
+
+[node name="Inventory" parent="VBoxContainer/ContentContainer" instance=ExtResource("2_go266")]
+visible = false
+layout_mode = 1
+
+[connection signal="tab_changed" from="VBoxContainer/TabBar" to="." method="tab_selected"]
+[connection signal="pressed" from="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer/StateChangers/Return" to="VBoxContainer/ContentContainer/Game" method="resume_button"]
+[connection signal="pressed" from="VBoxContainer/ContentContainer/Game/MarginContainer/VBoxContainer/StateChangers/MainMenu" to="VBoxContainer/ContentContainer/Game" method="main_menu_button"]

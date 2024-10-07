@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf0qugtn0waji"]
+
+[sub_resource type="GDScript" id="GDScript_4l81r"]
+script/source = "extends Area2D
+
+
+enum Types {
+	TYPE_NONE = 0,
+	TYPE_DOOR = 1,
+	TYPE_COMPUTER = 2
+}
+
+@export var type : Types = 0
+
+
+func _process(delta):
+	if Input.is_action_just_pressed(\"interact\"):
+		for i in get_overlapping_bodies():
+			if i.is_in_group(\"player\"):
+				process_interact()
+
+
+func process_interact():
+	if !GameState.player_state.active:
+		return
+	
+	if type == Types.TYPE_NONE:
+		pass
+	
+	elif type == Types.TYPE_COMPUTER:
+		Gameplay.start_computer(\"desert01\")
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s50l4"]
+radius = 5.0
+
+[node name="GarbageTrigger" type="Area2D"]
+script = SubResource("GDScript_4l81r")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s50l4")

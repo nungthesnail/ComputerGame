@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsid7nbo3i4gj"]
+
+[ext_resource type="Script" path="res://Objects/World/Interactive/Basic/ItemCollector.gd" id="1_gy8ut"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_03qem"]
+radius = 5.0
+
+[node name="ItemCollector" type="Area2D" groups=["interactive"]]
+script = ExtResource("1_gy8ut")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_03qem")

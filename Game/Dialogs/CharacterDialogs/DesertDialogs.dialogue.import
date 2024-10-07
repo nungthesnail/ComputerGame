@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://cjwk123kp1r8c"
+path="res://.godot/imported/DesertDialogs.dialogue-fc26fee72223dd333f3d97842e3f7383.tres"
+
+[deps]
+
+source_file="res://Game/Dialogs/CharacterDialogs/DesertDialogs.dialogue"
+dest_files=["res://.godot/imported/DesertDialogs.dialogue-fc26fee72223dd333f3d97842e3f7383.tres"]
+
+[params]
+
+defaults=true

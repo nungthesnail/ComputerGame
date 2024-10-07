@@ -1,0 +1,422 @@
+[gd_scene load_steps=6 format=3 uid="uid://bclffwswhx7ht"]
+
+[ext_resource type="Script" path="res://Scripts/Computer/Programs/luANVIL/CodeEditor.gd" id="1_qmjtx"]
+
+[sub_resource type="GDScript" id="GDScript_igbmt"]
+script/source = "extends HBoxContainer
+
+
+func button_save():
+	if FileManager.file_exists(\"userdata/userprograms/{0}\".format([$\"../../..\".file_name])):
+		$\"../../..\".save()
+	else:
+		button_save_as()
+
+
+func button_save_as():
+	$\"../../../Popups/SaveAs\".popup_centered()
+
+
+func button_open():
+	$\"../../../Popups/Open\".popup_centered()
+
+
+func button_input():
+	$\"../../../Popups/Input\".popup_centered()
+
+
+func button_run():
+	$\"../../..\".run()
+
+
+func button_exit():
+	$\"../../..\".exit()
+
+
+func button_task():
+	$\"../../../Task\".show()
+
+
+func button_task_close():
+	$\"../../../Task\".hide()
+"
+
+[sub_resource type="GDScript" id="GDScript_c7hs6"]
+script/source = "extends Window
+
+
+func showed():
+	$Control/VBoxContainer/FileName.text = $\"../..\".file_name
+
+
+func button_ok():
+	$\"../..\".file_name = $Control/VBoxContainer/FileName.text
+	$\"../..\".save()
+	hide()
+
+
+func button_cancel():
+	hide()
+"
+
+[sub_resource type="GDScript" id="GDScript_84p7l"]
+script/source = "extends Window
+
+
+@onready var selector : OptionButton = $Control/VBoxContainer/HBoxContainer2/Selector
+var flist : Array[String] = []
+
+
+func showed():
+	load_filelist()
+
+
+func load_filelist():
+	var dir = DirAccess.open(FileManager.get_default_path())
+	var err = dir.change_dir(\"userdata/user_programs\")
+	assert(err == OK, \"Can\\'t open dir to get file list\")
+	var file_list = dir.get_files()
+	
+	flist.clear()
+	selector.clear()
+	for f in file_list:
+		flist.append(f)
+		selector.add_item(f)
+
+
+func button_ok():
+	var fname = flist[selector.get_selected_id()]
+	$\"../..\".file_name = fname
+	$\"../..\".open()
+	hide()
+
+
+func button_cancel():
+	hide()
+"
+
+[sub_resource type="GDScript" id="GDScript_k3v0q"]
+script/source = "extends Window
+
+
+func showed():
+	$Control/VBoxContainer/InputEdit.text = $\"../..\".input_data
+
+
+func button_ok():
+	$\"../..\".input_data = $Control/VBoxContainer/InputEdit.text
+	hide()
+
+
+func button_cancel():
+	hide()
+"
+
+[node name="CodeEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qmjtx")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopMargin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="VBoxContainer/TopMargin"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="ToolContainer" type="HBoxContainer" parent="VBoxContainer/TopMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+script = SubResource("GDScript_igbmt")
+
+[node name="Save" type="Button" parent="VBoxContainer/TopMargin/ToolContainer"]
+layout_mode = 2
+text = "Сохранить"
+
+[node name="SaveAs" type="Button" parent="VBoxContainer/TopMargin/ToolContainer"]
+layout_mode = 2
+text = "Сохранить как"
+
+[node name="Open" type="Button" parent="VBoxContainer/TopMargin/ToolContainer"]
+layout_mode = 2
+text = "Открыть"
+
+[node name="Input" type="Button" parent="VBoxContainer/TopMargin/ToolContainer"]
+layout_mode = 2
+text = "Ввод данных"
+
+[node name="Run" type="Button" parent="VBoxContainer/TopMargin/ToolContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Запустить!"
+
+[node name="Exit" type="Button" parent="VBoxContainer/TopMargin/ToolContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Выход"
+
+[node name="Task" type="Button" parent="VBoxContainer/TopMargin/ToolContainer"]
+layout_mode = 2
+text = "Задание"
+
+[node name="SplitContainer" type="SplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+vertical = true
+
+[node name="CodeMargin" type="MarginContainer" parent="VBoxContainer/SplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CodeEdit" type="CodeEdit" parent="VBoxContainer/SplitContainer/CodeMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Пишите код здесь..."
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+
+[node name="OutputMargin" type="MarginContainer" parent="VBoxContainer/SplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="VBoxContainer/SplitContainer/OutputMargin"]
+layout_mode = 2
+
+[node name="Output" type="RichTextLabel" parent="VBoxContainer/SplitContainer/OutputMargin"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Вывод:
+"
+
+[node name="Task" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Task"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Task"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Close" type="Button" parent="Task/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Закрыть"
+
+[node name="Text" type="RichTextLabel" parent="Task/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Popups" type="Node" parent="."]
+
+[node name="SaveAs" type="Window" parent="Popups"]
+title = "..."
+position = Vector2i(100, 100)
+size = Vector2i(300, 150)
+visible = false
+script = SubResource("GDScript_c7hs6")
+
+[node name="Control" type="Control" parent="Popups/SaveAs"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popups/SaveAs/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Popups/SaveAs/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Сохранить как"
+horizontal_alignment = 1
+
+[node name="FileName" type="LineEdit" parent="Popups/SaveAs/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+placeholder_text = "Название файла"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popups/SaveAs/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Save" type="Button" parent="Popups/SaveAs/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Сохранить"
+
+[node name="Cancel" type="Button" parent="Popups/SaveAs/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Отмена"
+
+[node name="Open" type="Window" parent="Popups"]
+title = "..."
+position = Vector2i(100, 100)
+size = Vector2i(300, 150)
+visible = false
+script = SubResource("GDScript_84p7l")
+
+[node name="Control" type="Control" parent="Popups/Open"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popups/Open/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Popups/Open/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Открыть"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Popups/Open/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="Popups/Open/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Выберите файл:"
+
+[node name="Selector" type="OptionButton" parent="Popups/Open/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popups/Open/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Open" type="Button" parent="Popups/Open/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Открыть"
+
+[node name="Cancel" type="Button" parent="Popups/Open/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Отмена"
+
+[node name="Input" type="Window" parent="Popups"]
+title = "Добавление ввода"
+position = Vector2i(100, 100)
+size = Vector2i(400, 300)
+visible = false
+script = SubResource("GDScript_k3v0q")
+
+[node name="Control" type="Control" parent="Popups/Input"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popups/Input/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InputEdit" type="TextEdit" parent="Popups/Input/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Пишите значения ввода input() через строку"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popups/Input/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Ok" type="Button" parent="Popups/Input/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "Сохранить"
+
+[node name="Cancel" type="Button" parent="Popups/Input/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "Отмена"
+
+[connection signal="pressed" from="VBoxContainer/TopMargin/ToolContainer/Save" to="VBoxContainer/TopMargin/ToolContainer" method="button_save"]
+[connection signal="pressed" from="VBoxContainer/TopMargin/ToolContainer/SaveAs" to="VBoxContainer/TopMargin/ToolContainer" method="button_save_as"]
+[connection signal="pressed" from="VBoxContainer/TopMargin/ToolContainer/Open" to="VBoxContainer/TopMargin/ToolContainer" method="button_open"]
+[connection signal="pressed" from="VBoxContainer/TopMargin/ToolContainer/Input" to="VBoxContainer/TopMargin/ToolContainer" method="button_input"]
+[connection signal="pressed" from="VBoxContainer/TopMargin/ToolContainer/Run" to="VBoxContainer/TopMargin/ToolContainer" method="button_run"]
+[connection signal="pressed" from="VBoxContainer/TopMargin/ToolContainer/Exit" to="VBoxContainer/TopMargin/ToolContainer" method="button_exit"]
+[connection signal="pressed" from="VBoxContainer/TopMargin/ToolContainer/Task" to="VBoxContainer/TopMargin/ToolContainer" method="button_task"]
+[connection signal="pressed" from="Task/VBoxContainer/Close" to="VBoxContainer/TopMargin/ToolContainer" method="button_task_close"]
+[connection signal="about_to_popup" from="Popups/SaveAs" to="Popups/SaveAs" method="showed"]
+[connection signal="pressed" from="Popups/SaveAs/Control/VBoxContainer/HBoxContainer/Save" to="Popups/SaveAs" method="button_ok"]
+[connection signal="pressed" from="Popups/SaveAs/Control/VBoxContainer/HBoxContainer/Cancel" to="Popups/SaveAs" method="button_cancel"]
+[connection signal="about_to_popup" from="Popups/Open" to="Popups/Open" method="showed"]
+[connection signal="pressed" from="Popups/Open/Control/VBoxContainer/HBoxContainer/Open" to="Popups/Open" method="button_ok"]
+[connection signal="pressed" from="Popups/Open/Control/VBoxContainer/HBoxContainer/Cancel" to="Popups/Open" method="button_cancel"]
+[connection signal="about_to_popup" from="Popups/Input" to="Popups/Input" method="showed"]
+[connection signal="pressed" from="Popups/Input/Control/VBoxContainer/HBoxContainer/Ok" to="Popups/Input" method="button_ok"]
+[connection signal="pressed" from="Popups/Input/Control/VBoxContainer/HBoxContainer/Cancel" to="Popups/Input" method="button_cancel"]

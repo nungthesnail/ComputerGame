@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://mn4s3cwumvi5"
+path="res://.godot/imported/MoonProcessingDialogs.dialogue-807ee60600a7c5746755d33a8311b23c.tres"
+
+[deps]
+
+source_file="res://Game/Missions/m03_MoonProcessing/MoonProcessingDialogs.dialogue"
+dest_files=["res://.godot/imported/MoonProcessingDialogs.dialogue-807ee60600a7c5746755d33a8311b23c.tres"]
+
+[params]
+
+defaults=true

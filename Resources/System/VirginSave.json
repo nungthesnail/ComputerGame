@@ -1,0 +1,81 @@
+{
+    "dev": "1",
+    "game_state": {
+        "player": {
+            "hp": 10,
+            "max_hp": 10,
+            "speed": 150
+        },
+        "world": {
+            "level": "Desert",
+            "spawn": "player_house"
+        }
+    },
+    "inventory": {
+        "amount": 5,
+        "cells": [
+            null,
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    "messenger": {
+        "blobtalk": {}
+    },
+    "progress": {
+        "last_completed": "",
+        "tasks": [
+            {
+                "@path": "res://Scripts/GlobalClasses/GameProgress.gd",
+                "@subpath": "ProgressTask",
+                "completed": false,
+                "next_task": "Quicksand",
+                "resource_path": "res://Game/Missions/m01_Introduction/Introduction.gd",
+                "task_name": "Introduction"
+            },
+            {
+                "@path": "res://Scripts/GlobalClasses/GameProgress.gd",
+                "@subpath": "ProgressTask",
+                "completed": false,
+                "next_task": "MoonProcessing",
+                "resource_path": "res://Game/Missions/m02_Quicksand/Quicksand.gd",
+                "task_name": "Quicksand"
+            },
+            {
+                "@path": "res://Scripts/GlobalClasses/GameProgress.gd",
+                "@subpath": "ProgressTask",
+                "completed": false,
+                "next_task": "RaiseTheAlarm",
+                "resource_path": "res://Game/Missions/m03_MoonProcessing/MoonProcessing.gd",
+                "task_name": "MoonProcessing"
+            },
+            {
+                "@path": "res://Scripts/GlobalClasses/GameProgress.gd",
+                "@subpath": "ProgressTask",
+                "completed": false,
+                "next_task": "CombatDrill",
+                "resource_path": "res://Game/Missions/m04_RaiseTheAlarm/RaiseTheAlarm.gd",
+                "task_name": "RaiseTheAlarm"
+            },
+            {
+                "@path": "res://Scripts/GlobalClasses/GameProgress.gd",
+                "@subpath": "ProgressTask",
+                "completed": false,
+                "next_task": "FirstStruggle",
+                "resource_path": "res://Game/Missions/m05_CombatDrill/CombatDrill.gd",
+                "task_name": "CombatDrill"
+            },
+            {
+                "@path": "res://Scripts/GlobalClasses/GameProgress.gd",
+                "@subpath": "ProgressTask",
+                "completed": false,
+                "next_task": "Introduction",
+                "resource_path": "res://Game/Missions/m06_FirstStruggle/FirstStruggle.gd",
+                "task_name": "FirstStruggle"
+            }
+        ]
+    },
+    "virgin": true
+}

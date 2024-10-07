@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://jkhhnxehaho"
+path="res://.godot/imported/QuicksandCharactersDialogs.dialogue-8d4216833ad6b6bdaa8d7ea039fd8edc.tres"
+
+[deps]
+
+source_file="res://Game/Missions/m02_Quicksand/QuicksandCharactersDialogs.dialogue"
+dest_files=["res://.godot/imported/QuicksandCharactersDialogs.dialogue-8d4216833ad6b6bdaa8d7ea039fd8edc.tres"]
+
+[params]
+
+defaults=true

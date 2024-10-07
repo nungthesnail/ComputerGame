@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c118xpu0p8d04"]
+
+[ext_resource type="Script" path="res://Scripts/Computer/Programs/TestTask.gd" id="1_snklk"]
+
+[resource]
+script = ExtResource("1_snklk")
+back_processing = true
+program_name = "test02"

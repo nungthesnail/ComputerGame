@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqsidwdepalm5"]
+
+[ext_resource type="PackedScene" uid="uid://dwfbbam7jp6hq" path="res://Scenes/UI/UIGameplay.tscn" id="1_ku7yv"]
+
+[sub_resource type="GDScript" id="GDScript_5yu37"]
+script/source = "extends Control
+
+
+var comp_ui : Control = null
+var world_ui : Control = null
+var covers : Dictionary = {}
+
+func _init():
+	ObjectRefs.ui_root = self
+
+
+func _ready():
+	world_ui = $UIGameplay
+
+
+func start_computer(id : String):
+	var comp = load(\"res://Scenes/Computer/ComputerMainTest.tscn\").instantiate()
+	comp.computer_name = id
+	add_child(comp)
+	comp_ui = comp
+
+
+func get_ui_computer():
+	return comp_ui
+
+
+func get_ui_gameplay():
+	if !is_instance_valid(world_ui):
+		return get_node(\"UIGameplay\")
+	return world_ui
+
+
+func add_cover(path : String, cover_name : String):
+	if !ResourceLoader.exists(path):
+		push_warning(\"Trying to add an unexisting cover\")
+		return
+	var cover = load(path).instantiate()
+	$Covers.add_child(cover)
+	covers[cover_name] = cover
+	return cover
+
+
+func get_cover(cover_name : String):
+	return covers.get(cover_name)
+
+
+func delete_cover(cover_name : String, args=[]):
+	var cover = covers.get(cover_name)
+	if is_instance_valid(cover):
+		if cover.has_method(\"end\"):
+			cover.end(args)
+		else:
+			cover.queue_free()
+	covers.erase(cover_name)
+"
+
+[node name="UiRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = SubResource("GDScript_5yu37")
+
+[node name="UIGameplay" parent="." instance=ExtResource("1_ku7yv")]
+layout_mode = 1
+
+[node name="Covers" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

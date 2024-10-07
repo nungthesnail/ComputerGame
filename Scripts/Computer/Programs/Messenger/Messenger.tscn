@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgcov3u2gnges"]
+
+[ext_resource type="Script" path="res://Scripts/Computer/Programs/Messenger/Messenger.gd" id="1_1luii"]
+
+[node name="Messenger" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1luii")
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SplitContainer" type="SplitContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Chats" type="Panel" parent="MainContainer/SplitContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="ChatsContainer" type="ScrollContainer" parent="MainContainer/SplitContainer/Chats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ChatsContainer2" type="VBoxContainer" parent="MainContainer/SplitContainer/Chats/ChatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Messages" type="Panel" parent="MainContainer/SplitContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DataContainer" type="VBoxContainer" parent="MainContainer/SplitContainer/Messages"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UserDataContainer" type="HBoxContainer" parent="MainContainer/SplitContainer/Messages/DataContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+alignment = 1
+
+[node name="AvatarContainer" type="MarginContainer" parent="MainContainer/SplitContainer/Messages/DataContainer/UserDataContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Avatar" type="TextureRect" parent="MainContainer/SplitContainer/Messages/DataContainer/UserDataContainer/AvatarContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="UserName" type="Label" parent="MainContainer/SplitContainer/Messages/DataContainer/UserDataContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="MessagesContainer" type="ScrollContainer" parent="MainContainer/SplitContainer/Messages/DataContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MessagesContainer2" type="VBoxContainer" parent="MainContainer/SplitContainer/Messages/DataContainer/MessagesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
